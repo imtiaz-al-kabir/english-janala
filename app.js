@@ -1,3 +1,13 @@
+const createElements = (arr) => {
+  const htmlEl = arr.map(
+    (el) => `<span class="btn bg-[#edf7ff] px-3 mr-2">${el} </span>`
+  );
+  return htmlEl.join(" ");
+};
+
+const name = ["imtiaz", "al", "kabir"];
+createElements(name);
+
 const loadLessons = async () => {
   const url = "https://openapi.programming-hero.com/api/levels/all";
   const response = await fetch(url);
@@ -16,6 +26,39 @@ const loadDetails = async (id) => {
   const ul = `https://openapi.programming-hero.com/api/word/${id}`;
   const response = await fetch(ul);
   const details = await response.json();
+  displayLoadDetails(details.data);
+};
+
+const displayLoadDetails = (word) => {
+  console.log(word);
+  const modalContainer = document.getElementById("modal-container");
+
+  modalContainer.innerHTML = `
+    
+    <div>
+            <h2 class="font-bold text-2xl">
+              ${word.word} (<i class="fa-solid fa-microphone-lines"></i>:${
+    word.pronunciation
+  })
+            </h2>
+          </div>
+          <div>
+            <h2 class="font-semibold text-lg">Meaning</h2>
+            <p>${word.meaning}</p>
+          </div>
+          <div>
+            <h2 class="font-semibold text-lg">Example</h2>
+            <p>${word.sentence}</p>
+          </div>
+          <div>
+            <h2 class="font-medium text-lg bangla pb-3">সমার্থক শব্দ গুলো</h2>
+             <div>
+             ${createElements(word.synonyms)}
+          </div>
+          </div>
+    
+    `;
+  document.getElementById("modal_details").showModal();
 };
 
 const removeActive = () => {
