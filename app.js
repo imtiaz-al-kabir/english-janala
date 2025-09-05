@@ -5,6 +5,12 @@ const createElements = (arr) => {
   return htmlEl.join(" ");
 };
 
+function pronounceWord(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
+}
+
 const manageSpin = (status) => {
   if (status == true) {
     document.getElementById("spinner").classList.remove("hidden");
@@ -98,7 +104,7 @@ const displayWordLevel = (word) => {
   }
   word.forEach((word) => {
     const wordDiv = document.createElement("div");
-    wordDiv.innerHTML = ` <div class="bg-white rounded-lg py-10 space-y-5">
+    wordDiv.innerHTML = ` <div class="bg-white rounded-lg py-10 space-y-5 h-full">
         <h2 class="font-bold text-3xl">${word.word}</h2>
         <p class="text-lg">Meaning /Pronounciation</p>
         <h1 class="text-3xl font-semibold bangla">${word.meaning} / ${word.pronunciation}</h1>
@@ -106,7 +112,7 @@ const displayWordLevel = (word) => {
           <button onclick="loadDetails(${word.id})" class="btn bg-[#e8f4ff] p-2 rounded-lg hover:bg-primary">
             <i class="fa-solid fa-circle-question"></i>
           </button>
-          <button class="btn bg-[#e8f4ff] p-2 rounded-lg hover:bg-primary">
+          <button onclick="pronounceWord('${word.word}')" class="btn bg-[#e8f4ff] p-2 rounded-lg hover:bg-primary">
             <i class="fa-solid fa-volume-high"></i>
           </button>
         </div>
