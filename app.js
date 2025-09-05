@@ -5,8 +5,15 @@ const createElements = (arr) => {
   return htmlEl.join(" ");
 };
 
-const name = ["imtiaz", "al", "kabir"];
-createElements(name);
+const manageSpin = (status) => {
+  if (status == true) {
+    document.getElementById("spinner").classList.remove("hidden");
+    document.getElementById("word-Container").classList.add("hidden");
+  } else {
+    document.getElementById("word-Container").classList.remove("hidden");
+    document.getElementById("spinner").classList.add("hidden");
+  }
+};
 
 const loadLessons = async () => {
   const url = "https://openapi.programming-hero.com/api/levels/all";
@@ -67,6 +74,7 @@ const removeActive = () => {
 };
 
 const loadWorldLevel = async (id) => {
+  manageSpin(true);
   const ul = `https://openapi.programming-hero.com/api/level/${id}`;
   const response = await fetch(ul);
   const jsonConvert = await response.json();
@@ -105,6 +113,7 @@ const displayWordLevel = (word) => {
       </div> `;
     wordContainer.append(wordDiv);
   });
+  manageSpin(false);
 };
 
 const displayLessons = (lessons) => {
@@ -120,3 +129,19 @@ const displayLessons = (lessons) => {
   }
 };
 loadLessons();
+
+document.getElementById("btn-search").addEventListener("click", () => {
+  removeActive();
+  const inputSearch = document.getElementById("input-search");
+  const searchValue = inputSearch.value.trim().toLowerCase();
+  fetch((url = "https://openapi.programming-hero.com/api/words/all"))
+    .then((res) => res.json())
+    .then((data) => {
+      const allWords = data.data;
+
+      const filterWords = allWords.filter((word) =>
+        word.word.toLowerCase().includes(searchValue)
+      );
+      displayWordLevel(filterWords);
+    });
+});

@@ -143,11 +143,36 @@
       ></div>
     </section>
 
+    <!-- search section  -->
+
+    <section class="flex justify-center items-center py-10">
+      <div class="join">
+        <div>
+          <label class="input validator join-item">
+            <input
+              id="input-search"
+              type="text"
+              placeholder="Search Vocabularies"
+              required
+            />
+          </label>
+        </div>
+        <button id="btn-search" class="btn btn-primary join-item">
+          Search
+        </button>
+      </div>
+    </section>
+
+    <!-- loading section  -->
+    <section id="spinner" class="flex justify-center items-center py-10 hidden">
+      <span class="loading loading-bars loading-xl"></span>
+    </section>
+
     <!-- lesson select section  -->
 
     <section
       id="word-Container"
-      class="bg-[#f8f8f8] w-11/12 mx-auto text-center grid grid-cols-3 gap-5 p-10"
+      class="bg-[#f8f8f8] w-11/12 mx-auto text-center grid grid-cols-1 sm:grid-cols-3 gap-5 p-10"
     >
       <div class="col-span-full py-20">
         <p class="text-[#79716B] mb-5 bangla">
